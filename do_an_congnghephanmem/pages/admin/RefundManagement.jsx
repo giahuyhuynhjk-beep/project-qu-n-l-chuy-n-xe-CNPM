@@ -1,0 +1,16 @@
+import React, { useState } from "react";
+import { FileText, RefreshCw, Search } from "lucide-react";
+import { AdminPage, StatusPill } from "../../layouts/AdminLayout";
+import { refundRequests } from "../../data/adminMockData";
+
+export default function RefundManagement() {
+  const [selected, setSelected] = useState(null);
+  return (
+    <AdminPage title="Xử lý yêu cầu Đổi/Hủy vé" subtitle="Quản lý và phê duyệt yêu cầu thay đổi từ khách hàng." actionLabel="Xuất báo cáo" onAction={() => alert("Demo xuất báo cáo.")}>
+      <div className="grid gap-5 xl:grid-cols-[360px_1fr]">
+        <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"><div className="mb-4 grid gap-3"><label className="relative"><Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" /><input placeholder="Tìm mã, SĐT..." className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50 pl-10 pr-3 outline-none focus:border-blue-500" /></label><select className="h-11 rounded-xl border border-slate-200 px-3"><option>Tất cả loại yêu cầu</option></select></div><div className="space-y-3">{refundRequests.map((req) => <button key={req.id} onClick={() => setSelected(req)} className={`w-full rounded-2xl border p-4 text-left ${selected?.id === req.id ? "border-blue-500 bg-blue-50" : "border-slate-100 hover:bg-slate-50"}`}><div className="flex items-start justify-between"><p className="font-black text-blue-700">{req.id}</p><StatusPill status={req.status} /></div><p className="mt-2 font-bold text-slate-800">{req.passenger}</p><p className="text-sm text-slate-500">{req.type} · {req.trip}</p></button>)}</div></section>
+        <section className="rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-sm">{selected ? <div className="mx-auto max-w-xl text-left"><div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-blue-600"><RefreshCw size={26}/></div><h2 className="mt-5 text-2xl font-black text-slate-900">{selected.id}</h2><p className="mt-2 text-slate-500">{selected.passenger} yêu cầu {selected.type.toLowerCase()} cho chuyến {selected.trip}.</p><div className="mt-6 grid gap-4 md:grid-cols-2"><div className="rounded-2xl bg-slate-50 p-4"><p className="text-xs font-black text-slate-400">Loại yêu cầu</p><p className="mt-2 font-black">{selected.type}</p></div><div className="rounded-2xl bg-slate-50 p-4"><p className="text-xs font-black text-slate-400">Số tiền</p><p className="mt-2 font-black">{selected.amount}</p></div></div><textarea className="mt-5 min-h-28 w-full rounded-2xl border border-slate-200 p-4" placeholder="Ghi chú xử lý"/><div className="mt-5 flex gap-3"><button className="flex-1 rounded-xl border border-slate-200 py-3 font-black text-slate-600">Từ chối</button><button className="flex-1 rounded-xl bg-blue-600 py-3 font-black text-white">Phê duyệt</button></div></div> : <div className="flex min-h-[460px] flex-col items-center justify-center text-slate-400"><FileText size={56}/><p className="mt-4 text-lg font-black text-slate-600">Chưa chọn yêu cầu</p><p className="mt-1 text-sm">Vui lòng chọn một yêu cầu từ danh sách bên trái.</p></div>}</section>
+      </div>
+    </AdminPage>
+  );
+}

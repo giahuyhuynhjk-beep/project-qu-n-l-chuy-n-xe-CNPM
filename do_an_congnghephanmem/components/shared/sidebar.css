@@ -1,0 +1,146 @@
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+.sidebar {
+  height: 100vh;
+  background: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.25s ease, min-width 0.25s ease;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.sidebar.expanded  { width: 240px; min-width: 240px; }
+.sidebar.collapsed { width: 64px;  min-width: 64px;  }
+
+/* --- Logo --- */
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #f3f4f6;
+}
+.sidebar.expanded  .sidebar-logo { padding: 18px 16px; justify-content: flex-start; }
+.sidebar.collapsed .sidebar-logo { padding: 18px 0;    justify-content: center;     }
+
+.sidebar-logo-icon {
+  background: #0d6efd;
+  border-radius: 8px;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sidebar-logo-text {
+  font-weight: 700;
+  font-size: 16px;
+  color: #111827;
+  white-space: nowrap;
+}
+
+/* --- Vùng dashboard --- */
+.sidebar-top { padding-top: 12px; padding-bottom: 0; }
+.sidebar.expanded  .sidebar-top { padding-left: 10px; padding-right: 10px; }
+.sidebar.collapsed .sidebar-top { padding-left: 8px;  padding-right: 8px;  }
+
+/* --- Vùng cuộn --- */
+.sidebar-scroll { flex: 1; overflow-y: auto; }
+.sidebar.expanded  .sidebar-scroll { padding: 4px 10px; }
+.sidebar.collapsed .sidebar-scroll { padding: 4px 8px;  }
+
+/* --- Nhóm menu --- */
+.sidebar-group { margin-top: 14px; }
+
+.sidebar-group-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #9ca3af;
+  letter-spacing: 0.8px;
+  padding: 0 4px;
+  margin-bottom: 6px;
+}
+
+.sidebar-group-divider {
+  border-top: 1px solid #f3f4f6;
+  margin: 4px 0 8px;
+}
+
+/* --- Menu item --- */
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 400;
+  color: #374151;
+  background: transparent;
+  transition: background 0.15s, color 0.15s;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  user-select: none;
+}
+.sidebar.expanded  .sidebar-item { padding: 10px 14px; justify-content: flex-start; }
+.sidebar.collapsed .sidebar-item { padding: 10px 0;    justify-content: center;     }
+
+.sidebar-item:hover       { background: #f3f4f6; }
+.sidebar-item.active      { background: #0d6efd; color: #ffffff; font-weight: 600; }
+.sidebar-item.active:hover{ background: #0b5ed7; }
+
+.sidebar-item-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-active-dot {
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #0d6efd;
+}
+
+/* --- Footer --- */
+.sidebar-footer { border-top: 1px solid #f3f4f6; }
+.sidebar.expanded  .sidebar-footer { padding: 12px 10px; }
+.sidebar.collapsed .sidebar-footer { padding: 12px 8px;  }
+
+.sidebar-logout {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.15s;
+  margin-bottom: 4px;
+}
+.sidebar.expanded  .sidebar-logout { padding: 10px 12px; justify-content: flex-start; }
+.sidebar.collapsed .sidebar-logout { padding: 10px 0;    justify-content: center;     }
+.sidebar-logout:hover    { background: #fef2f2; }
+.sidebar-logout-text     { color: #ef4444; font-weight: 500; }
+
+.sidebar-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #6b7280;
+  font-size: 14px;
+  transition: background 0.15s;
+}
+.sidebar.expanded  .sidebar-toggle { padding: 10px 12px; justify-content: flex-start; }
+.sidebar.collapsed .sidebar-toggle { padding: 10px 0;    justify-content: center;     }
+.sidebar-toggle:hover { background: #f3f4f6; }
