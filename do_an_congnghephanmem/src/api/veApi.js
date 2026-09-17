@@ -2,12 +2,14 @@ import axiosClient from "./axiosClient";
 
 // ============================================================
 // VÉ API – /ve/
-// Fields: MaVe, MaChuyen, MaKhachHang, SoGhe, GiaVe, TrangThaiVe,
-//         TrangThaiThanhToan, NgayDat, PhuongThucTT
+// Fields: MaVe, MaChuyen, SoGhe, TenKhachHang, SoDienThoai, GiaVe, TrangThaiV
 // ============================================================
 export const veApi = {
   /** GET /ve/ – Danh sách tất cả vé */
-  getAll: () => axiosClient.get("/ve/"),
+  getAll: (params) => axiosClient.get("/ve/", { params }),
+
+  /** GET /ve/search – Tra cứu vé theo SĐT hoặc Mã vé */
+  search: (sdt, maVe) => axiosClient.get("/ve/search", { params: { sdt, ma_ve: maVe } }),
 
   /** GET /ve/{ma_ve} – Chi tiết một vé */
   getById: (maVe) => axiosClient.get(`/ve/${maVe}`),
@@ -20,4 +22,7 @@ export const veApi = {
 
   /** DELETE /ve/{ma_ve} – Xóa vé */
   delete: (maVe) => axiosClient.delete(`/ve/${maVe}`),
+
+  /** PATCH /ve/{ma_ve}/pay – Thanh toán vé */
+  pay: (maVe) => axiosClient.patch(`/ve/${maVe}/pay`),
 };

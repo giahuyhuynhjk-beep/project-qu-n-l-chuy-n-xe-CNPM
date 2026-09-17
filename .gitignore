@@ -3,5 +3,10 @@ dist/
 build/
 .env
 .env.local
-.ds_store
+.DS_Store
 *.log
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/

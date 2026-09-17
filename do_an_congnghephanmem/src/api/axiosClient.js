@@ -5,7 +5,7 @@ import axios from "axios";
 // baseURL trỏ đến FastAPI backend đang chạy ở localhost:8000
 // ============================================================
 const axiosClient = axios.create({
-  baseURL: "http://localhost:8000",
+  baseURL: import.meta.env.VITE_API_BASE_URL || "http://3.104.2.96:8000",
   headers: {
     "Content-Type": "application/json",
   },
@@ -33,9 +33,11 @@ axiosClient.interceptors.response.use(
   (response) => response,
   (error) => {
     const status = error.response?.status;
+    const isAuthEndpoint = error.config?.url?.includes("/auth/login");
+    const isLoginPage = typeof window !== "undefined" && window.location.pathname === "/login";
 
-    if (status === 401) {
-      // Token hết hạn → xóa và redirect về login
+    if (status === 401 && !isAuthEndpoint && !isLoginPage) {
+      // Token hết hạn → xóa và redirect về login (tránh redirect loop khi sai mật khẩu hoặc ở trang login)
       localStorage.removeItem("access_token");
       localStorage.removeItem("user_info");
       window.location.href = "/login";

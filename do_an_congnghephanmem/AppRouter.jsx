@@ -28,6 +28,12 @@ import AdminApp from './pages/admin/AdminApp';
 import DriverDashboard from './pages/driver/DriverDashboard';
 import IncidentReport  from './pages/driver/IncidentReport';
 
+// ─── Client pages ──────────────────────────────────────────
+import ClientHome      from './pages/client/ClientHome';
+import ClientSearch    from './pages/client/ClientSearch';
+import ClientBooking   from './pages/client/ClientBooking';
+import ClientMyTickets from './pages/client/ClientMyTickets';
+
 // ============================================================
 // APP ROUTER – Điều phối route theo vai trò sau khi đăng nhập
 // ============================================================
@@ -47,18 +53,16 @@ export default function AppRouter() {
   const homeByRole = () => {
     if (role === ROLE_TYPES.ADMIN)  return '/admin';
     if (role === ROLE_TYPES.DRIVER) return '/driver-dashboard';
+    if (role === ROLE_TYPES.STAFF)  return '/';
     if (role === ROLE_TYPES.CLIENT) return '/client';
-    return '/'; // staff
+    return '/client';
   };
 
   return (
     <Routes>
 
-      {/* ── PUBLIC: Login ─────────────────────────────── */}
-      <Route
-        path="/login"
-        element={isAuthenticated ? <Navigate to={homeByRole()} replace /> : <LoginPage />}
-      />
+      {/* ── PUBLIC: Login (Thuần túy Public Route) ─────────── */}
+      <Route path="/login" element={<LoginPage />} />
 
       {/* ── ADMIN ─────────────────────────────────────── */}
       <Route path="/admin" element={
@@ -99,25 +103,12 @@ export default function AppRouter() {
           </div>
         } />
       </Route>
-
       {/* ── CLIENT ─────────────────────────────────────── */}
       <Route path="/client" element={<ClientLayout />}>
-        <Route index element={
-          <div style={{padding:'80px 24px',textAlign:'center',color:'#1e293b'}}>
-            <h2 style={{fontSize:32,fontWeight:900,marginBottom:8}}>Chào mừng đến Vận Trình 🚌</h2>
-            <p style={{color:'#64748b',fontSize:15,marginBottom:28}}>Đặt vé xe khách nhanh chóng, an toàn, tiện lợi</p>
-            <a href="/client/search" style={{
-              display:'inline-block', background:'#2563eb', color:'#fff',
-              padding:'14px 32px', borderRadius:14, textDecoration:'none',
-              fontWeight:800, fontSize:15, boxShadow:'0 4px 14px rgba(37,99,235,0.35)'
-            }}>
-              🔍 Tìm chuyến xe ngay →
-            </a>
-          </div>
-        } />
-        <Route path="search"     element={<div style={{padding:40,textAlign:'center',color:'#64748b'}}>🚧 Trang tìm kiếm đang phát triển</div>} />
-        <Route path="booking"    element={<div style={{padding:40,textAlign:'center',color:'#64748b'}}>🚧 Trang đặt vé đang phát triển</div>} />
-        <Route path="my-tickets" element={<div style={{padding:40,textAlign:'center',color:'#64748b'}}>🚧 Vé của tôi đang phát triển</div>} />
+        <Route index element={<ClientHome />} />
+        <Route path="search"     element={<ClientSearch />} />
+        <Route path="booking"    element={<ClientBooking />} />
+        <Route path="my-tickets" element={<ClientMyTickets />} />
       </Route>
 
       {/* ── FALLBACK ──────────────────────────────────── */}

@@ -6,11 +6,16 @@ import axiosClient from "./axiosClient";
 //         ThoiGianDenDuKien, TrangThai, SoGheTrong, GiaVe
 // ============================================================
 export const chuyenXeApi = {
-  /** GET /chuyen-xe/ – Danh sách tất cả chuyến xe */
+  /** GET /chuyen-xe/ – Danh sách tất cả chuyến xe (Admin) */
   getAll: () => axiosClient.get("/chuyen-xe/"),
+
+  /** GET /chuyen-xe/upcoming – Chuyến sắp chạy cho Khách hàng */
+  getUpcoming: (params = {}) =>
+    axiosClient.get("/chuyen-xe/upcoming", { params }),
 
   /** GET /chuyen-xe/{ma_chuyen} – Chi tiết một chuyến */
   getById: (maChuyen) => axiosClient.get(`/chuyen-xe/${maChuyen}`),
+
 
   /**
    * GET /chuyen-xe/search – Tìm kiếm chuyến theo điểm đi/đến/thời gian
